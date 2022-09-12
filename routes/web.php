@@ -36,5 +36,5 @@ Route::middleware([
 });
 
 Route::prefix('events')->group(function () {
-    Route::get('/', [EventController::class, 'index']);
+    Route::get('/', [EventController::class, 'index'])->name('events.index');
 });
