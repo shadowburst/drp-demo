@@ -10,10 +10,6 @@
 
 @layer components {
     .card {
-        margin: theme("spacing.3");
-        background-color: theme("colors.white");
-        border-radius: theme("borderRadius.lg");
-        padding: theme("spacing.6");
-        box-shadow: theme("boxShadow.xl");
+        @apply mt-12 max-w-7xl mx-auto sm:p-6 lg:p-8 bg-white overflow-hidden shadow-xl sm:rounded-lg;
     }
 }

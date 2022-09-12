@@ -2,8 +2,10 @@
 import Dialog from "@/Components/Common/DialogModal";
 import Button from "@/Components/Common/Button";
 import Input from "@/Components/Common/Input";
+import DatePicker from "@/Components/Common/DatePicker";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
+import moment from "moment";
 
 const emit = defineEmits(["close"]);
 
@@ -27,7 +29,7 @@ watch(
   () => {
     if (props.itemToEdit) {
       form.title = props.itemToEdit.title;
-      form.starts_at = props.itemToEdit.starts_at;
+      form.starts_at = moment(props.itemToEdit.starts_at);
       form.clearErrors();
       show.value = true;
       editing.value = true;
@@ -52,6 +54,7 @@ const onSubmit = () => {
 const onClose = () => {
   form.reset();
   show.value = false;
+  emit("close");
 };
 </script>
 
@@ -65,6 +68,7 @@ const onClose = () => {
       <template #title>{{editing ? 'Edit event' : 'Add new event'}}</template>
       <template #content>
         <Input name="title" label="Title" v-model="form.title" />
+        <DatePicker label="Date" v-model="form.starts_at" />
       </template>
       <template #footer>
         <Button variant="secondary" class="mr-3" @click="onClose">Cancel</Button>
