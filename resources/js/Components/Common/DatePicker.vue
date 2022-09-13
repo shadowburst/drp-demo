@@ -90,24 +90,21 @@ const handleBlur = (event) => {
       <div v-show="open" class="absolute top-1 card p-2 cursor-default">
         <div class="flex flex-row justify-between items-center">
           <button
-            class="rounded-full h-10 w-10 flex justify-center items-center text-gray-700 hover:bg-gray-100 cursor-pointer"
+            class="button"
             @click="displayedMonth = displayedMonth.clone().subtract(1, 'month')"
           >
             <vue-feather type="chevron-left" />
           </button>
           <div>{{displayedMonth.format('MMMM YYYY')}}</div>
-          <button
-            class="rounded-full h-10 w-10 flex justify-center items-center text-gray-700 hover:bg-gray-100 cursor-pointer"
-            @click="displayedMonth = displayedMonth.clone().add(1, 'month')"
-          >
+          <button class="button" @click="displayedMonth = displayedMonth.clone().add(1, 'month')">
             <vue-feather type="chevron-right" />
           </button>
         </div>
         <div v-for="(week, weekIndex) in weeks" :key="`week_${weekIndex}`" class="flex flex-row">
           <div v-for="(day, dayIndex) in week" :key="`week_${weekIndex}_day_${dayIndex}`">
             <button
-              class="rounded-full h-10 w-10 flex justify-center items-center text-gray-700 hover:bg-gray-100 cursor-pointer"
-              :class="{'opacity-25': !day.isSame(displayedMonth, 'month')}"
+              class="button"
+              :class="{'opacity-25': !day.isSame(displayedMonth, 'month'), 'button--selected': modelValue && day.isSame(modelValue, 'day')}"
               @click="handleDateClick(day)"
             >{{day.format('DD')}}</button>
           </div>
@@ -117,5 +114,12 @@ const handleBlur = (event) => {
   </div>
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
+.button {
+  @apply rounded-full h-10 w-10 flex justify-center items-center text-gray-700 hover:bg-gray-100 cursor-pointer;
+}
+
+.button--selected {
+  @apply bg-gray-800 hover:bg-gray-700 text-gray-50;
+}
 </style>

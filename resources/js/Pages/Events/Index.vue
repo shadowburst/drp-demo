@@ -28,7 +28,7 @@ const itemToEdit = ref(null);
       <Table :data="events" :headings="['Title', 'Date', 'Actions']">
         <template #row="{item}">
           <td>{{item.title}}</td>
-          <td>{{moment(item.starts_at).format('HH:mm DD/MM/YYYY')}}</td>
+          <td>{{moment(item.starts_at).format('DD/MM/YYYY')}}</td>
           <td>
             <span class="px-2 text-gray-700 hover:text-blue-500 cursor-pointer transition">
               <vue-feather type="edit" size="1.3rem" @click="itemToEdit = item" />
