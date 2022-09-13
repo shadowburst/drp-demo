@@ -37,4 +37,6 @@ Route::middleware([
 
 Route::prefix('events')->group(function () {
     Route::get('/', [EventController::class, 'index'])->name('events.index');
+    Route::post('/store', [EventController::class, 'store'])->name('events.store');
+    Route::put('/update/{id}', [EventController::class, 'update'])->name('events.update');
 });

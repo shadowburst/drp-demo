@@ -47,7 +47,22 @@ const onAddNew = () => {
 };
 
 const onSubmit = () => {
+  const transform = (data) => ({
+    ...data,
+    starts_at: data.starts_at.format("DD/MM/YYYY"),
+  });
+
+  const requestParams = {
+    preserveScroll: true,
+    onSuccess: () => emit("close"),
+  };
+
   if (editing.value) {
+    form
+      .transform(transform)
+      .put(route("events.update", props.itemToEdit.id), requestParams);
+  } else {
+    form.transform(transform).post(route("events.store"), requestParams);
   }
 };
 
@@ -72,7 +87,7 @@ const onClose = () => {
       </template>
       <template #footer>
         <Button variant="secondary" class="mr-3" @click="onClose">Cancel</Button>
-        <Button>Submit</Button>
+        <Button @click="onSubmit">Submit</Button>
       </template>
     </Dialog>
   </div>
