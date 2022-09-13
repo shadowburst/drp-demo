@@ -2,7 +2,7 @@
 import Dialog from "@/Components/Common/DialogModal";
 import Button from "@/Components/Common/Button";
 import Input from "@/Components/Common/Input";
-import DatePicker from "@/Components/Common/DatePicker";
+import DateTimePicker from "@/Components/Common/DateTimePicker";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { ref, watch } from "vue";
 import moment from "moment";
@@ -49,7 +49,7 @@ const onAddNew = () => {
 const onSubmit = () => {
   const transform = (data) => ({
     ...data,
-    starts_at: data.starts_at.format("DD/MM/YYYY"),
+    starts_at: data.starts_at.format("HH:mm DD/MM/YYYY"),
   });
 
   const requestParams = {
@@ -80,11 +80,11 @@ const onClose = () => {
       <span class="ml-2">Add new</span>
     </Button>
     <Dialog :show="show" @close="onClose">
-      <template #title>{{editing ? 'Edit event' : 'Add new event'}}</template>
-      <template #content>
-        <Input name="title" label="Title" v-model="form.title" />
-        <DatePicker label="Date" v-model="form.starts_at" />
-      </template>
+      <template #header>{{editing ? 'Edit event' : 'Add new event'}}</template>
+
+      <Input name="title" label="Title" v-model="form.title" />
+      <DateTimePicker label="Date" v-model="form.starts_at" />
+
       <template #footer>
         <Button variant="secondary" class="mr-3" @click="onClose">Cancel</Button>
         <Button @click="onSubmit">Submit</Button>

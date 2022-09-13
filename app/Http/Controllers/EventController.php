@@ -21,12 +21,12 @@ class EventController extends Controller
     {
         $data = Request::validate([
             'title' => ['required', 'max:255'],
-            'starts_at' => ['required', 'date:d/m/Y']
+            'starts_at' => ['required', 'date:H:i d/m/Y']
         ]);
 
         Event::create([
             ...$data,
-            'starts_at' => Carbon::createFromFormat('d/m/Y', $data['starts_at'])
+            'starts_at' => Carbon::createFromFormat('H:i d/m/Y', $data['starts_at'])
         ]);
 
         return Redirect::route('events.index');
@@ -38,13 +38,22 @@ class EventController extends Controller
 
         $data = Request::validate([
             'title' => ['required', 'max:255'],
-            'starts_at' => ['required', 'date:d/m/Y']
+            'starts_at' => ['required', 'date:H:i d/m/Y']
         ]);
 
         $event->update([
             ...$data,
-            'starts_at' => Carbon::createFromFormat('d/m/Y', $data['starts_at'])
+            'starts_at' => Carbon::createFromFormat('H:i d/m/Y', $data['starts_at'])
         ]);
+
+        return Redirect::route('events.index');
+    }
+
+    public function delete(int $id)
+    {
+        $event = Event::findOrFail($id);
+
+        $event->delete();
 
         return Redirect::route('events.index');
     }

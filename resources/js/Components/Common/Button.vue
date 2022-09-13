@@ -7,7 +7,7 @@ defineProps({
   },
   variant: {
     type: String,
-    validator: (prop) => ["primary", "secondary"].includes(prop),
+    validator: (prop) => ["primary", "secondary", "danger"].includes(prop),
     default: "primary",
   },
 });
@@ -17,6 +17,8 @@ const classes = {
     "bg-gray-800 border border-transparent text-white hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300",
   secondary:
     "bg-white border border-gray-300 text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50",
+  danger:
+    "bg-red-800 border border-transparent text-white hover:bg-red-700 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-300",
 };
 </script>
 
