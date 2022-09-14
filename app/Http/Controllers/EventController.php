@@ -12,7 +12,14 @@ class EventController extends Controller
 {
     public function index()
     {
+        Request::validate([
+            'starts_at' => ['nullable', 'date:Y-m-d'],
+            'ends_at' => ['nullable', 'date:Y-m-d'],
+        ]);
+
         return Inertia::render('Events/Index', [
+            'starts_at' => Request::get('starts_at'),
+            'ends_at' => Request::get('ends_at'),
             'events' => Event::isBetween(Request::get('starts_at'), Request::get('ends_at'))->orderByDate()->get()
         ]);
     }
@@ -21,40 +28,36 @@ class EventController extends Controller
     {
         $data = Request::validate([
             'title' => ['required', 'max:255'],
-            'starts_at' => ['required', 'date:H:i d/m/Y']
+            'starts_at' => ['required', 'date:Y-m-d H:i']
         ]);
 
         Event::create([
             ...$data,
-            'starts_at' => Carbon::createFromFormat('H:i d/m/Y', $data['starts_at'])
+            'starts_at' => Carbon::createFromFormat('Y-m-d H:i', $data['starts_at'])
         ]);
 
-        return Redirect::route('events.index');
+        return Redirect::back();
     }
 
-    public function update(int $id)
+    public function update(Event $event)
     {
-        $event = Event::findOrFail($id);
-
         $data = Request::validate([
             'title' => ['required', 'max:255'],
-            'starts_at' => ['required', 'date:H:i d/m/Y']
+            'starts_at' => ['required', 'date:Y-m-d H:i']
         ]);
 
         $event->update([
             ...$data,
-            'starts_at' => Carbon::createFromFormat('H:i d/m/Y', $data['starts_at'])
+            'starts_at' => Carbon::createFromFormat('Y-m-d H:i', $data['starts_at'])
         ]);
 
-        return Redirect::route('events.index');
+        return Redirect::back();
     }
 
-    public function delete(int $id)
+    public function destroy(Event $event)
     {
-        $event = Event::findOrFail($id);
-
         $event->delete();
 
-        return Redirect::route('events.index');
+        return Redirect::back();
     }
 }

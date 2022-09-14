@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Database\Factories\EventFactory;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,10 +25,10 @@ class Event extends Model
     public function scopeIsBetween($query, $startsAt, $endsAt)
     {
         if ($startsAt) {
-            $query->where('events.starts_at', '>', $startsAt);
+            $query->where('events.starts_at', '>', Carbon::createFromFormat('Y-m-d H:i', "{$startsAt} 00:00"));
         }
         if ($endsAt) {
-            $query->where('events.starts_at', '<', $endsAt);
+            $query->where('events.starts_at', '<', Carbon::createFromFormat('Y-m-d H:i', "{$endsAt} 23:59"));
         }
         return $query;
     }

@@ -26,8 +26,7 @@ defineProps({
       <tr
         v-for="(row, rowIndex) in data"
         :key="`row_${rowIndex}`"
-        class="border-b"
-        :class="{'bg-white': rowIndex % 2 === 0, 'bg-gray-50': rowIndex % 2 === 1}"
+        class="border-b odd:bg-white even:bg-gray-50"
       >
         <slot name="row" :item="row" />
       </tr>

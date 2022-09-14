@@ -24,14 +24,16 @@ defineExpose({ focus: () => input.value.focus() });
 </script>
 
 <template>
-  <label :for="name" class="block font-medium text-sm text-gray-700">
-    <span v-if="label">{{ label }}</span>
-  </label>
-  <input
-    :name="name"
-    ref="input"
-    class="mb-6 p-3 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm transition"
-    :value="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
-  />
+  <div>
+    <label :for="name" class="font-medium text-sm text-gray-700">
+      <span v-if="label">{{ label }}</span>
+    </label>
+    <input
+      :name="name"
+      ref="input"
+      class="p-3 w-full outline-0 border border-gray-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm transition"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+    />
+  </div>
 </template>

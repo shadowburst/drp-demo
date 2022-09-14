@@ -2,7 +2,7 @@
 import Dialog from "@/Components/Common/DialogModal";
 import Button from "@/Components/Common/Button";
 import Input from "@/Components/Common/Input";
-import DateTimePicker from "@/Components/Common/DateTimePicker";
+import DateTimePicker from "@/Components/Common/DateTimePickers/DateTimePicker";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { ref, watch } from "vue";
 import moment from "moment";
@@ -49,12 +49,12 @@ const onAddNew = () => {
 const onSubmit = () => {
   const transform = (data) => ({
     ...data,
-    starts_at: data.starts_at.format("HH:mm DD/MM/YYYY"),
+    starts_at: data.starts_at.format("YYYY-MM-DD HH:mm"),
   });
 
   const requestParams = {
     preserveScroll: true,
-    onSuccess: () => emit("close"),
+    onSuccess: onClose,
   };
 
   if (editing.value) {
@@ -70,6 +70,7 @@ const onClose = () => {
   form.reset();
   show.value = false;
   emit("close");
+  console.log("closed");
 };
 </script>
 
@@ -82,8 +83,8 @@ const onClose = () => {
     <Dialog :show="show" @close="onClose">
       <template #header>{{editing ? 'Edit event' : 'Add new event'}}</template>
 
-      <Input name="title" label="Title" v-model="form.title" />
-      <DateTimePicker label="Date" v-model="form.starts_at" />
+      <Input name="title" label="Title" v-model="form.title" class="mb-6" />
+      <DateTimePicker label="Date" v-model="form.starts_at" class="mb-6" />
 
       <template #footer>
         <Button variant="secondary" class="mr-3" @click="onClose">Cancel</Button>
