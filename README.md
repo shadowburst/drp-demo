@@ -1,4 +1,4 @@
-<p align="center">DateRangePicker Demo</p>
+<h1 align="center">DateRangePicker Demo</h1>
 
 ## Installation
 
