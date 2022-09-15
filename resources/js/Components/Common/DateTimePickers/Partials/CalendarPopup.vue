@@ -1,6 +1,6 @@
 <script setup>
-import moment from "moment";
 import { computed, ref, watch } from "vue";
+import moment from "moment";
 
 const props = defineProps({
   value: {

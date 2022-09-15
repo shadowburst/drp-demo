@@ -1,11 +1,11 @@
 <script setup>
+import { ref, watch } from "vue";
+import { useForm } from "@inertiajs/inertia-vue3";
+import moment from "moment";
 import Dialog from "@/Components/Common/DialogModal";
 import Button from "@/Components/Common/Button";
 import Input from "@/Components/Common/Input";
 import DateTimePicker from "@/Components/Common/DateTimePickers/DateTimePicker";
-import { useForm } from "@inertiajs/inertia-vue3";
-import { ref, watch } from "vue";
-import moment from "moment";
 
 const emit = defineEmits(["close"]);
 
@@ -24,6 +24,7 @@ const form = useForm({
   starts_at: null,
 });
 
+// Reset the form whenever the item to edit changes
 watch(
   () => props.itemToEdit,
   () => {
@@ -40,12 +41,14 @@ watch(
   }
 );
 
+// Called when the user clicks on the "Add new" button
 const onAddNew = () => {
   form.reset();
   show.value = true;
   editing.value = false;
 };
 
+// Called when the user submits the form
 const onSubmit = () => {
   const transform = (data) => ({
     ...data,
@@ -57,6 +60,7 @@ const onSubmit = () => {
     onSuccess: onClose,
   };
 
+  // Stores or updates the item
   if (editing.value) {
     form
       .transform(transform)
@@ -66,11 +70,11 @@ const onSubmit = () => {
   }
 };
 
+// Called when the dialog closes
 const onClose = () => {
   form.reset();
   show.value = false;
   emit("close");
-  console.log("closed");
 };
 </script>
 
