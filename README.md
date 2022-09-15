@@ -1,5 +1,12 @@
 <h1 align="center">DateRangePicker Demo</h1>
 
+This project serves as a demo for a custom-made DateRangePicker component. It was made using Laravel 8, Vue3, InertiaJS and momentjs.
+
+## Requirements
+
+-   Git
+-   Docker
+
 ## Installation
 
 -   Clone the project
